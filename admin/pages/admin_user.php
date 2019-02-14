@@ -89,11 +89,10 @@ window.location = "admin_user.php";
             </div>
             <div class="block-content collapse in">
                 <div class="span12">
-                    <form action="delete_users.php" method="post">
+                    <form action="delete.php" method="post">
                         <table cellpadding="0" cellspacing="0" border="0" class="table" id="example">
-                            <a data-toggle="modal" href="#user_delete" id="delete" class="btn btn-danger" name=""><i
-                                    class="icon-trash icon-large"></i></a>
-                            <?php include('modal_delete.php'); ?>
+                        <button type="submit" id="delete" name="form_name" value="user" class="btn btn-danger" onClick="return confirm('Are you sure you want to delete this item?');"><i class="icon-trash icon-large"></i></a>
+
                             <thead>
                                 <tr>
                                     <th></th>
@@ -105,7 +104,7 @@ window.location = "admin_user.php";
                             </thead>
                             <tbody>
                                 <?php
-                                $user_query = mysqli_query($conn, "select * from users") or die(mysqli_error());
+                                $user_query = mysqli_query($conn, "select * from user") or die(mysqli_error());
                                 while ($row = mysqli_fetch_array($user_query)) {
                                     $id = $row['user_id'];
                                     ?>

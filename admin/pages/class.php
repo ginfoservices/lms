@@ -1,35 +1,35 @@
 <div class="span3" id="adduser">
-<div class="row-fluid">
-       <!-- block -->
-       <div class="block">
-           <div class="navbar navbar-inner block-header">
-               <div class="muted pull-left">Add Class</div>
-           </div>
-           <div class="block-content collapse in">
-               <div class="span12">
-                   <form method="post">
-                       <div class="control-group">
-                           <div class="controls">
-                               <input name="class_name" class="input focused" id="focusedInput" type="text"
-                                   placeholder="Class Name" required>
-                           </div>
-                       </div>
+    <div class="row-fluid">
+        <!-- block -->
+        <div class="block">
+            <div class="navbar navbar-inner block-header">
+                <div class="muted pull-left">Add Class</div>
+            </div>
+            <div class="block-content collapse in">
+                <div class="span12">
+                    <form method="post">
+                        <div class="control-group">
+                            <div class="controls">
+                                <input name="class_name" class="input focused" id="focusedInput" type="text"
+                                    placeholder="Class Name" required>
+                            </div>
+                        </div>
 
 
-                       <div class="control-group">
-                           <div class="controls">
-                               <button name="save" class="btn btn-info"><i
-                                       class="icon-plus-sign icon-large"></i></button>
+                        <div class="control-group">
+                            <div class="controls">
+                                <button name="save" class="btn btn-info"><i
+                                        class="icon-plus-sign icon-large"></i></button>
 
-                           </div>
-                       </div>
-                   </form>
-               </div>
-           </div>
-       </div>
-       <!-- /block -->
-   </div>
-   <?php
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /block -->
+    </div>
+    <?php
     if (isset($_POST['save'])) {
         $class_name = $_POST['class_name'];
 
@@ -38,22 +38,23 @@
         $count = mysqli_num_rows($query);
 
         if ($count > 0) { ?>
-   <script>
-alert('Date Already Exist');
-   </script>
-   <?php
+    <script>
+    alert('Date Already Exist');
+    </script>
+    <?php
 
 } else {
     mysqli_query($conn, "insert into class (class_name) values('$class_name')") or die(mysqli_error());
     ?>
-   <script>
-window.location = "class.php";
-   </script>
-   <?php
+    <script>
+    window.location = "dashboard.php?page=class";
+    </script>
+    <?php
 
 }
 }
-?></div>
+?>
+</div>
 <div class="span6" id="">
     <div class="row-fluid">
         <!-- block -->
@@ -63,11 +64,9 @@ window.location = "class.php";
             </div>
             <div class="block-content collapse in">
                 <div class="span12">
-                    <form action="delete_class.php" method="post">
-                        <table cellpadding="0" cellspacing="0" border="0" class="table" id="example">
-                            <a data-toggle="modal" href="#class_delete" id="delete" class="btn btn-danger" name=""><i
-                                    class="icon-trash icon-large"></i></a>
-                            <?php include('modal_delete.php'); ?>
+                    <form action="delete.php" method="post">
+                        <table cellpadding="0" cellspacing="0" class="table" id="example">
+                            <button type="submit" id="delete" name="form_name" value="class" class="btn btn-danger" onClick="return confirm('Are you sure you want to delete this item?');"><i class="icon-trash icon-large"></i></a>
                             <thead>
                                 <tr>
                                     <th></th>

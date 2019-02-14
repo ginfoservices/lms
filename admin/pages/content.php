@@ -1,6 +1,6 @@
 <div class="span9" id="content">
     <div class="row-fluid">
-        <a href="add_content.php" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Add
+        <a href="dashboard.php?page=add_content" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Add
             Content</a>
         <!-- block -->
         <div id="block_bg" class="block">
@@ -27,10 +27,10 @@
                             <tbody>
 
                                 <?php
-                                            $content_query = mysqli_query($conn, "select * from content") or die(mysqli_error());
-                                            while ($row = mysqli_fetch_array($content_query)) {
-                                                $id = $row['content_id'];
-                                                ?>
+                                $content_query = mysqli_query($conn, "select * from content") or die(mysqli_error());
+                                while ($row = mysqli_fetch_array($content_query)) {
+                                    $id = $row['content_id'];
+                                    ?>
 
                                 <tr>
                                     <td width="30">
@@ -44,7 +44,7 @@
 
                                 </tr>
                                 <?php 
-                                        } ?>
+                            } ?>
 
 
                             </tbody>

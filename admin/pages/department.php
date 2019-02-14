@@ -43,8 +43,8 @@
         $d = $_POST['d'];
 
 
-        $query = mysql_query("select * from department where department_name = '$d' and dean = '$pi' ") or die(mysql_error());
-        $count = mysql_num_rows($query);
+        $query = mysqli_query($conn, "select * from department where department_name = '$d' and dean = '$pi' ") or die(mysql_error());
+        $count = mysqli_num_rows($query);
 
         if ($count > 0) { ?>
     <script>
@@ -53,10 +53,10 @@
     <?php
 
 } else {
-    mysql_query("insert into department (department_name,dean) values('$d','$pi')") or die(mysql_error());
+    mysqli_query($conn, "insert into department (department_name,dean) values('$d','$pi')") or die(mysql_error());
     ?>
     <script>
-    window.location = "department.php";
+    window.location = "dashboard.php?page=department";
     </script>
     <?php
 
@@ -74,7 +74,7 @@
             <div class="block-content collapse in">
                 <div class="span12">
                     <form action="delete_department.php" method="post">
-                        <table cellpadding="0" cellspacing="0" border="0" class="table" id="example">
+                        <table cellpadding="0" cellspacing="0" class="table" id="example">
                             <a data-toggle="modal" href="#department_delete" id="delete" class="btn btn-danger"
                                 name=""><i class="icon-trash icon-large"></i></a>
                             <?php include('modal_delete.php'); ?>

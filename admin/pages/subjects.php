@@ -9,11 +9,9 @@
             </div>
             <div class="block-content collapse in">
                 <div class="span12">
-                    <form action="delete_subject.php" method="post">
+                    <form action="delete.php" method="post">
                         <table cellpadding="0" cellspacing="0" border="0" class="table" id="example">
-                            <a data-toggle="modal" href="#subject_delete" id="delete" class="btn btn-danger" name=""><i
-                                    class="icon-trash icon-large"></i></a>
-                            <?php include('modal_delete.php'); ?>
+                        <button type="submit" id="delete" name="form_name" value="subject" class="btn btn-danger" onClick="return confirm('Are you sure you want to delete this item?');"><i class="icon-trash icon-large"></i></a>
                             <thead>
                                 <tr>
                                     <th></th>
@@ -25,10 +23,10 @@
                             <tbody>
 
                                 <?php
-                                            $subject_query = mysqli_query($conn, "select * from subject") or die(mysqli_error());
-                                            while ($row = mysqli_fetch_array($subject_query)) {
-                                                $id = $row['subject_id'];
-                                                ?>
+                                $subject_query = mysqli_query($conn, "select * from subject") or die(mysqli_error());
+                                while ($row = mysqli_fetch_array($subject_query)) {
+                                    $id = $row['subject_id'];
+                                    ?>
 
                                 <tr>
                                     <td width="30">
@@ -43,7 +41,7 @@
                                 </tr>
 
                                 <?php 
-                                        } ?>
+                            } ?>
 
                             </tbody>
                         </table>

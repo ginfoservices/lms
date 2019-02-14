@@ -35,7 +35,7 @@
                 Uploaded
                 Assignments</a>
         </li>
-        <li class="<?= ($page == 'content') ? 'active' : ''; ?>">
+        <li class="<?= ($page == 'content' || $page=='add_content') ? 'active' : ''; ?>">
             <a href="dashboard.php?page=content"><i class="icon-chevron-right"></i><i class="icon-file"></i> Content</a>
         </li>
         <li class="<?= ($page == 'user_log') ? 'active' : ''; ?>">

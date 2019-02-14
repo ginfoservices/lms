@@ -9,7 +9,7 @@ if (isset($_SESSION['id'])) {
 
     $session_id = $_SESSION['id'];
 
-    $user_query = mysqli_query($conn, "select * from users where user_id = '$session_id'") or die(mysqli_error());
+    $user_query = mysqli_query($conn, "select * from user where user_id = '$session_id'") or die(mysqli_error());
     $user_row = mysqli_fetch_array($user_query);
     $user_username = $user_row['username'];
 

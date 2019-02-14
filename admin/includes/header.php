@@ -14,6 +14,7 @@ if (isset($_SESSION['id'])) {
     $user_username = $user_row['username'];
 
     $page = (isset($_GET['page'])) ? $_GET['page'] : 'dashboard';
+    $id = isset($_GET['id']) ? $_GET['id'] : '';
     ?>
 
 
@@ -25,10 +26,11 @@ if (isset($_SESSION['id'])) {
 
 
     ?>
-    <script>
-    window.location = "dashboard.php?page=dashboard";
-    </script>
-<?php } ?>
+<script>
+window.location = "dashboard.php?page=dashboard";
+</script>
+<?php 
+} ?>
 <!DOCTYPE html>
 <html class="no-js">
 

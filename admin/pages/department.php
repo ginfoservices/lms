@@ -7,26 +7,30 @@
             </div>
             <div class="block-content collapse in">
                 <div class="span12">
-                    <form method="post">
+                <form method="post">
+                        <?php 
+                        $query = mysqli_query($conn, "select * from department where department_id = '$id'") or die(mysqli_error());
+                        $row = mysqli_fetch_array($query);
+                        ?>
                         <div class="control-group">
                             <div class="controls">
-                                <input class="input focused" id="focusedInput" name="d" type="text"
-                                    placeholder="Deparment">
+                                <input class="input focused" value="<?= isset($_GET['id']) ? $row['department_name'] : ''; ?>"
+                                    id="focusedInput" name="d" type="text" placeholder="Deparment">
                             </div>
                         </div>
 
                         <div class="control-group">
                             <div class="controls">
-                                <input class="input focused" id="focusedInput" name="pi" type="text"
-                                    placeholder="Person Incharge">
+                                <input class="input focused" value="<?= isset($_GET['id']) ? $row['dean'] : ''; ?>" id="focusedInput"
+                                    name="dn" type="text" placeholder="Person Incharge">
                             </div>
                         </div>
 
 
                         <div class="control-group">
                             <div class="controls">
-                                <button name="save" class="btn btn-info"><i
-                                        class="icon-plus-sign icon-large"></i></button>
+                                <button name="update" class="btn btn-success"><i
+                                        class="icon-save icon-large"></i></button>
 
                             </div>
                         </div>
@@ -36,7 +40,21 @@
         </div>
         <!-- /block -->
     </div>
+    <?php
+    if (isset($_POST['update'])) {
 
+
+        $dn = $_POST['dn'];
+        $d = $_POST['d'];
+
+        mysqli_query("update department set department_name = '$dn' , dean  = '$d' where department_id = '$id' ") or die(mysqli_error());
+        ?>
+    <script>
+    window.location = 'department.php';
+    </script>
+    <?php 
+}
+?>
     <?php
     if (isset($_POST['save'])) {
         $pi = $_POST['pi'];
@@ -75,9 +93,8 @@
                 <div class="span12">
                     <form action="delete_department.php" method="post">
                         <table cellpadding="0" cellspacing="0" class="table" id="example">
-                            <a data-toggle="modal" href="#department_delete" id="delete" class="btn btn-danger"
-                                name=""><i class="icon-trash icon-large"></i></a>
-                            <?php include('modal_delete.php'); ?>
+                        <button type="submit" id="delete" name="form_name" value="department" class="btn btn-danger" onClick="return confirm('Are you sure you want to delete this item?');"><i class="icon-trash icon-large"></i></a>
+
                             <thead>
                                 <tr>
                                     <th></th>

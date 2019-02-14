@@ -9,6 +9,11 @@ if (isset($_POST['form_name'])) {
 	for ($i = 0; $i < $N; $i++) {
 		$query = "DELETE FROM $table where {$table}_id='$id[$i]'";
 		$result = mysqli_query($conn, $query);
+
+		if ($table == 'student') {
+			mysqli_query($conn, "DELETE FROM teacher_class_student where student_id='$id[$i]'");
+
+		}
 	}
 	header("location: $_SERVER[HTTP_REFERER]");
 }

@@ -1,4 +1,3 @@
-<?php $get_id = $_GET['id']; ?>
 <div class="span3" id="adduser">
     <div class="row-fluid">
         <!-- block -->
@@ -9,7 +8,7 @@
             <?php
             if (isset($_GET['id'])) {
 
-                $query = mysqli_query($conn, "select * from $page where {$page}_id = '$get_id'") or die(mysql_error());
+                $query = mysqli_query($conn, "select * from $page where {$page}_id = '$id'") or die(mysql_error());
                 $row = mysqli_fetch_array($query);
 
             }
@@ -44,21 +43,21 @@
     if (isset($_POST['update'])) {
         $class_name = $_POST['class_name'];
 
-        mysqli_query($conn, "update class set class_name = '$class_name' where class_id = '$get_id' ") or die(mysql_error());
+        mysqli_query($conn, "update class set class_name = '$class_name' where class_id = '$id' ") or die(mysql_error());
         ?>
 
-       <?php
+    <?php
 
-    }
+}
 
-    if (isset($_POST['save'])) {
-        $class_name = $_POST['class_name'];
+if (isset($_POST['save'])) {
+    $class_name = $_POST['class_name'];
 
 
-        $query = mysqli_query($conn, "select * from class where class_name  =  '$class_name' ") or die(mysqli_error());
-        $count = mysqli_num_rows($query);
+    $query = mysqli_query($conn, "select * from class where class_name  =  '$class_name' ") or die(mysqli_error());
+    $count = mysqli_num_rows($query);
 
-        if ($count > 0) { ?>
+    if ($count > 0) { ?>
     <script>
     alert('Date Already Exist');
     </script>

@@ -1,3 +1,4 @@
+
 <div class="span3" id="adduser">
     <div class="row-fluid">
         <!-- block -->
@@ -7,19 +8,22 @@
             </div>
             <div class="block-content collapse in">
                 <div class="span12">
-                    <form id="add_student" method="post">
-
+                    <form method="post">
+                        <?php
+                        $query = mysqli_query($conn, "select * from student LEFT JOIN class ON class.class_id = student.class_id where student_id = '$id'") or die(mysqli_error());
+                        $row = mysqli_fetch_array($query);
+                        ?>
                         <div class="control-group">
 
                             <div class="controls">
-                                <select name="class_id" class="" required>
-                                    <option></option>
+                                <select name="cys" class="chzn-select" required>
+                                  
                                     <?php
                                     $cys_query = mysqli_query($conn, "select * from class order by class_name");
                                     while ($cys_row = mysqli_fetch_array($cys_query)) {
 
                                         ?>
-                                    <option value="<?php echo $cys_row['class_id']; ?>">
+                                    <option value="<?php echo $cys_row['class_id']; ?>" <?= (isset($_GET['id']) ? ($row['class_id'] == $cys_row['class_id'] ? 'selected' : '') : '') ?>>
                                         <?php echo $cys_row['class_name']; ?></option>
                                     <?php 
                                 } ?>
@@ -29,30 +33,30 @@
 
                         <div class="control-group">
                             <div class="controls">
-                                <input name="un" class="input focused" id="focusedInput" type="text"
-                                    placeholder="ID Number" required>
+                                <input name="un" value="<?php echo $row['username']; ?>" class="input focused"
+                                    id="focusedInput" type="text" placeholder="ID Number" required>
                             </div>
                         </div>
 
                         <div class="control-group">
                             <div class="controls">
-                                <input name="fn" class="input focused" id="focusedInput" type="text"
-                                    placeholder="Firstname" required>
+                                <input name="fn" value="<?php echo $row['firstname']; ?>" class="input focused"
+                                    id="focusedInput" type="text" placeholder="Firstname" required>
                             </div>
                         </div>
 
                         <div class="control-group">
                             <div class="controls">
-                                <input name="ln" class="input focused" id="focusedInput" type="text"
-                                    placeholder="Lastname" required>
+                                <input name="ln" value="<?php echo $row['lastname']; ?>" class="input focused"
+                                    id="focusedInput" type="text" placeholder="Lastname" required>
                             </div>
                         </div>
 
 
                         <div class="control-group">
                             <div class="controls">
-                                <button name="save" class="btn btn-info"><i
-                                        class="icon-plus-sign icon-large"></i></button>
+                                <button name="<?= isset($_GET['id']) ? 'update' : 'save'; ?>" class="btn btn-success"><i
+                                        class="icon-save icon-large"></i></button>
 
                             </div>
                         </div>
@@ -62,8 +66,48 @@
         </div>
         <!-- /block -->
     </div>
+    <?php
+    if (isset($_POST['update'])) {
+
+        $un = $_POST['un'];
+        $fn = $_POST['fn'];
+        $ln = $_POST['ln'];
+        $cys = $_POST['cys'];
+
+
+        mysqli_query($conn, "update student set username = '$un' , firstname ='$fn' , lastname = '$ln' , class_id = '$cys' where student_id = '$id' ") or die(mysqli_error());
+
+
+
+        ?>
 
     <script>
+    window.location = $_SERVER['HTTP_REFERER'];
+    </script>
+
+    <?php 
+} ?>
+
+    <?php
+
+    if (isset($_POST['save'])) {
+        $un = $_POST['un'];
+        $fn = $_POST['fn'];
+        $ln = $_POST['ln'];
+        $class_id = $_POST['cys'];
+
+        mysqli_query($conn, "insert into student (username,firstname,lastname,location,class_id,status)
+    values ('$un','$fn','$ln','uploads/NO-IMAGE-AVAILABLE.jpg','$class_id','Unregistered')                                    
+    ") or die(mysqli_error()); ?>
+<script>
+    window.location = $_SERVER['HTTP_REFERER'];
+    </script>
+
+    <?php
+
+}
+?>
+    <!-- <script>
     jQuery(document).ready(function($) {
         $("#add_student").submit(function(e) {
             e.preventDefault();
@@ -94,7 +138,7 @@
             });
         });
     });
-    </script>
+    </script> -->
 </div>
 <div class="span6" id="">
     <div class="row-fluid">
@@ -105,7 +149,71 @@
             </div>
             <div class="block-content collapse in">
                 <div class="span12" id="studentTableDiv">
-                    <?php include('student_table.php'); ?>
+                    <form action="delete.php" method="post">
+                        <table cellpadding="0" cellspacing="0" class="table" id="example">
+                        <div class="pull-left"><button type="submit" id="delete" name="form_name" value="student" class="btn btn-danger" onClick="return confirm('Are you sure you want to delete this item?');"><i class="icon-trash icon-large"></i></a></div>
+                            
+                            
+
+                            <div class="pull-right">
+                                <ul class="nav nav-pills">
+                                    <li class="active">
+                                        <a href="dashboard.php?page=students">All</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="dashboard.php?page=students&type=registered">Unregistered</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="dashboard.php?page=students&type=unregistered"">Registered</a>
+</li>
+</ul>
+</div>
+<thead>
+<tr>
+<th></th>
+
+<th>Name</th>
+<th>ID Number</th>
+
+<th>Course Yr & Section</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+
+<?php
+if (isset($_GET['type']) && $_GET['type'] == 'registered') {
+    $query = mysqli_query($conn, "select * from student LEFT JOIN class ON student.class_id = class.class_id where status = 'Registered' ORDER BY student.student_id DESC") or die(mysqli_error());
+} else if (isset($_GET['type']) && $_GET['type'] == 'unregistered') {
+    $query = mysqli_query($conn, "select * from student LEFT JOIN class ON student.class_id = class.class_id where status = 'Unregistered' ORDER BY student.student_id DESC") or die(mysqli_error());
+} else {
+    $query = mysqli_query($conn, "select * from student LEFT JOIN class ON student.class_id = class.class_id ORDER BY student.student_id DESC") or die(mysqli_error());
+}
+
+while ($row = mysqli_fetch_array($query)) {
+    $id = $row['student_id'];
+    ?>
+
+<tr>
+	<td width="
+                                            30"><input id="optionsCheckbox" class="uniform_on" name="selector[]"
+                                                type="checkbox" value="<?php echo $id; ?>"></td>
+
+                                            <td><?php echo $row['firstname'] . " " . $row['lastname']; ?></td>
+                                            <td><?php echo $row['username']; ?></td>
+
+                                            <td width="100"><?php echo $row['class_name']; ?></td>
+
+                                            <td width="30"><a href="dashboard.php?page=students&id=<?= $id; ?>"
+                                                    class="btn btn-success"><i class="icon-pencil"></i> </a></td>
+
+                                            </tr>
+                                            <?php 
+                                        } ?>
+
+                                            </tbody>
+                        </table>
+                    </form>
                 </div>
             </div>
         </div>

@@ -1,3 +1,4 @@
+
 <div class="span3" id="adduser">
 <div class="row-fluid">
        <!-- block -->
@@ -7,7 +8,7 @@
            </div>
            <div class="block-content collapse in">
                <div class="span12">
-                   <form method="post">
+               <form method="post">
                        <!--
 										<label>Photo:</label>
 										<div class="control-group">
@@ -16,19 +17,24 @@
                                           </div>
                                         </div>
 									-->
+                       <?php
+                        $query = mysqli_query($conn, "select * from teacher where teacher_id = '$id' ") or die(mysqli_error());
+                        $row = mysqli_fetch_array($query);
+                        ?>
 
                        <div class="control-group">
                            <label>Department:</label>
                            <div class="controls">
-                               <select name="department" class="" required>
-                                   <option></option>
+                               <select name="department" class="chzn-select" required>
+                                   
+
                                    <?php
-                                    $query = mysqli_query($conn, "select * from department order by department_name");
-                                    while ($row = mysqli_fetch_array($query)) {
+                                    $department = mysqli_query($conn, "select * from department order by department_name");
+                                    while ($department_row = mysqli_fetch_array($department)) {
 
                                         ?>
-                                   <option value="<?php echo $row['department_id']; ?>">
-                                       <?php echo $row['department_name']; ?></option>
+                                   <option value="<?php echo $department_row['department_id']; ?>" <?= ($row['department_id'] == $department_row['department_id']) ? 'selected' : ''; ?>>
+                                       <?php echo $department_row['department_name']; ?></option>
                                    <?php 
                                 } ?>
                                </select>
@@ -37,15 +43,15 @@
 
                        <div class="control-group">
                            <div class="controls">
-                               <input class="input focused" name="firstname" id="focusedInput" type="text"
-                                   placeholder="Firstname">
+                               <input class="input focused" value="<?php echo $row['firstname']; ?>" name="firstname"
+                                   id="focusedInput" type="text" placeholder="Firstname">
                            </div>
                        </div>
 
                        <div class="control-group">
                            <div class="controls">
-                               <input class="input focused" name="lastname" id="focusedInput" type="text"
-                                   placeholder="Lastname">
+                               <input class="input focused" value="<?php echo $row['lastname']; ?>" name="lastname"
+                                   id="focusedInput" type="text" placeholder="Lastname">
                            </div>
                        </div>
 
@@ -53,8 +59,8 @@
 
                        <div class="control-group">
                            <div class="controls">
-                               <button name="save" class="btn btn-info"><i
-                                       class="icon-plus-sign icon-large"></i></button>
+                               <button name="<?= isset($_GET['id']) ? 'update' : 'save'; ?>" class="btn btn-success"><i
+                                       class="icon-save icon-large"></i></button>
 
                            </div>
                        </div>
@@ -65,10 +71,38 @@
        <!-- /block -->
    </div>
 
-
    <?php
-    if (isset($_POST['save'])) {
+    if (isset($_POST['update'])) {
 
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastname'];
+        $department_id = $_POST['department'];
+
+
+        $query = mysqli_query($conn, "select * from teacher where firstname = '$firstname' and lastname = '$lastname' ") or die(mysqli_error());
+        $count = mysqli_num_rows($query);
+
+        if ($count > 1) { ?>
+   <script>
+alert('Data Already Exist');
+   </script>
+   <?php
+
+} else {
+
+    mysqli_query($conn, "update teacher set firstname = '$firstname' , lastname = '$lastname' , department_id = '$department_id' where teacher_id = '$id' ") or die(mysqli_error());
+
+    ?>
+   <script>
+window.location = $_SERVER['HTTP_REFERER'];
+   </script>
+   <?php 
+}
+} ?>
+   <?php
+
+    if (isset($_POST['save'])) {
+        var_dump($_POST);
         $firstname = $_POST['firstname'];
         $lastname = $_POST['lastname'];
         $department_id = $_POST['department'];
@@ -89,7 +123,7 @@ alert('Data Already Exist');
 								values ('$firstname','$lastname','uploads/NO-IMAGE-AVAILABLE.jpg','$department_id')         
 								") or die(mysqli_error()); ?>
    <script>
-window.location = "teachers.php";
+window.location = $_SERVER['HTTP_REFERER'];
    </script>
    <?php 
 }
@@ -103,11 +137,9 @@ window.location = "teachers.php";
             </div>
             <div class="block-content collapse in">
                 <div class="span12">
-                    <form action="delete_teacher.php" method="post">
+                    <form action="delete.php" method="post">
                         <table cellpadding="0" cellspacing="0" border="0" class="table" id="example">
-                            <a data-toggle="modal" href="#teacher_delete" id="delete" class="btn btn-danger" name=""><i
-                                    class="icon-trash icon-large"></i></a>
-                            <?php include('modal_delete.php'); ?>
+                        <button type="submit" id="delete" name="form_name" value="teacher" class="btn btn-danger" onClick="return confirm('Are you sure you want to delete this item?');"><i class="icon-trash icon-large"></i></a>
                             <thead>
                                 <tr>
                                     <th></th>
@@ -136,7 +168,7 @@ window.location = "teachers.php";
                                     <td><?php echo $row['firstname'] . " " . $row['lastname']; ?></td>
                                     <td><?php echo $row['username']; ?></td>
 
-                                    <td width="50"><a href="edit_teacher.php<?php echo '?id=' . $id; ?>"
+                                    <td width="50"><a href="dashboard.php?page=teachers&id=<?= $id; ?>"
                                             class="btn btn-success"><i class="icon-pencil"></i></a></td>
                                     <?php if ($teacher_stat == 'Activated') { ?>
                                     <td width="120"><a href="de_activate.php<?php echo '?id=' . $id; ?>"
@@ -144,7 +176,7 @@ window.location = "teachers.php";
                                             Deactivate</a></td>
                                     <?php 
                                 } else { ?>
-                                    <td width="120"><a href="edit_teacher.php<?php echo '?id=' . $id; ?>"
+                                    <td width="120"><a href="dashboard.php?page=teachers&id=<?= $id; ?>"
                                             class="btn btn-success"><i class="icon-check"></i> Activated</a>
                                     </td>
                                     <?php 

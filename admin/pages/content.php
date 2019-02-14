@@ -10,10 +10,9 @@
             <div class="block-content collapse in">
                 <div class="span12">
                     <form action="delete_content.php" method="post">
-                        <table cellpadding="0" cellspacing="0" border="0" class="table" id="example">
-                            <a data-toggle="modal" href="#content_delete" id="delete" class="btn btn-danger" name=""><i
-                                    class="icon-trash icon-large"></i></a>
-                            <?php include('modal_delete.php'); ?>
+                        <table cellpadding="0" cellspacing="0" class="table" id="example">
+                        <button type="submit" id="delete" name="form_name" value="content" class="btn btn-danger" onClick="return confirm('Are you sure you want to delete this item?');"><i class="icon-trash icon-large"></i></a>
+
                             <thead>
                                 <tr>
 
@@ -38,7 +37,7 @@
                                             value="<?php echo $id; ?>">
                                     </td>
                                     <td><?php echo $row['title']; ?></td>
-                                    <td width="30"><a href="edit_content.php<?php echo '?id=' . $id; ?>"
+                                    <td width="30"><a href="dashboard.php?page=edit_content&id=<?= $id; ?>"
                                             class="btn btn-success"><i class="icon-pencil icon-large"></i></a></td>
 
 

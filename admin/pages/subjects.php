@@ -11,39 +11,41 @@
                 <div class="span12">
                     <form action="delete.php" method="post">
                         <table cellpadding="0" cellspacing="0" border="0" class="table" id="example">
-                        <button type="submit" id="delete" name="form_name" value="subject" class="btn btn-danger" onClick="return confirm('Are you sure you want to delete this item?');"><i class="icon-trash icon-large"></i></a>
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Subject Code</th>
-                                    <th>Subject Title</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                            <button type="submit" id="delete" name="form_name" value="subject" class="btn btn-danger"
+                                onClick="return confirm('Are you sure you want to delete this item?');"><i
+                                    class="icon-trash icon-large"></i></a>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Subject Code</th>
+                                        <th>Subject Title</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                                <?php
-                                $subject_query = mysqli_query($conn, "select * from subject") or die(mysqli_error());
-                                while ($row = mysqli_fetch_array($subject_query)) {
-                                    $id = $row['subject_id'];
-                                    ?>
+                                    <?php
+                                    $subject_query = mysqli_query($conn, "select * from subject") or die(mysqli_error());
+                                    while ($row = mysqli_fetch_array($subject_query)) {
+                                        $id = $row['subject_id'];
+                                        ?>
 
-                                <tr>
-                                    <td width="30">
-                                        <input id="optionsCheckbox" class="uniform_on" name="selector[]" type="checkbox"
-                                            value="<?php echo $id; ?>">
-                                    </td>
-                                    <td><?php echo $row['subject_code']; ?></td>
-                                    <td><?php echo $row['subject_title']; ?></td>
+                                    <tr>
+                                        <td width="30">
+                                            <input id="optionsCheckbox" class="uniform_on" name="selector[]"
+                                                type="checkbox" value="<?php echo $id; ?>">
+                                        </td>
+                                        <td><?php echo $row['subject_code']; ?></td>
+                                        <td><?php echo $row['subject_title']; ?></td>
 
-                                    <td width="30"><a href="edit_subject.php<?php echo '?id=' . $id; ?>"
-                                            class="btn btn-success"><i class="icon-pencil"></i> </a></td>
-                                </tr>
+                                        <td width="30"><a href="dashboard.php?page=edit_subject&id=<?= $id; ?>"
+                                                class="btn btn-success"><i class="icon-pencil"></i> </a></td>
+                                    </tr>
 
-                                <?php 
-                            } ?>
+                                    <?php 
+                                } ?>
 
-                            </tbody>
+                                </tbody>
                         </table>
                     </form>
                 </div>

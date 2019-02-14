@@ -16,8 +16,6 @@
                         </div>
                         <div class="block-content collapse in">
                             <a href="content.php"><i class="icon-arrow-left"></i> Back</a>
-
-
                             <form class="form-horizontal" method="POST">
                                 <div class="control-group">
                                     <label class="control-label" for="inputEmail">Title</label>
@@ -29,14 +27,9 @@
                                 <div class="control-group">
                                     <label class="control-label" for="inputPassword">Content</label>
                                     <div class="controls">
-                                        <textarea name="content" id="ckeditor_full">
-
-												</textarea>
+                                        <textarea name="content" id="ckeditor_full"></textarea>
                                     </div>
                                 </div>
-
-
-
                                 <div class="control-group">
                                     <div class="controls">
 
@@ -45,19 +38,19 @@
                                     </div>
                                 </div>
                             </form>
-
                             <?php
-										if (isset($_POST['save'])){
-										$title = $_POST['title'];
-										$content = $_POST['content'];
-										mysqli_query($conn, "insert into content (title,content) value('$title','$content')")or die(mysqli_error());
-										?>
+                            if (isset($_POST['save'])) {
+                                $title = $_POST['title'];
+                                $content = $_POST['content'];
+                                mysqli_query($conn, "insert into content (title,content) value('$title','$content')") or die(mysqli_error());
+                                ?>
                             <script>
                             window.location = 'content.php';
                             </script>
                             <?php
-										}
-										?>
+
+                        }
+                        ?>
 
 
                         </div>

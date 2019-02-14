@@ -7,7 +7,7 @@
             </div>
             <div class="block-content collapse in">
                 <div class="span12">
-                    $conn, <table cellpadding="0" cellspacing="0" border="0" class="table" id="example">
+                    $conn, <table cellpadding="0" cellspacing="0"  class="table" id="example">
 
                         <thead>
                             <tr>
@@ -20,7 +20,7 @@
                         </thead>
                         <tbody>
                             <?php
-                                        $user_query = mysqli_query($conn, "select * from user_log order by user_log_id ") or die(mysqli_error());
+                                        $user_query = mysqli_query($conn, "select * from user_log order by user_log_id ASC") or die(mysqli_error());
                                         while ($row = mysqli_fetch_array($user_query)) {
                                             $id = $row['user_log_id'];
                                             ?>

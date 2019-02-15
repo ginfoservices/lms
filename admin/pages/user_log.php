@@ -1,13 +1,13 @@
-<div class="span9" id="content">
-    <div class="row-fluid">
-        <!-- block -->
-        <div id="block_bg" class="block">
-            <div class="navbar navbar-inner block-header">
-                <div class="muted pull-left">Users Log List</div>
-            </div>
-            <div class="block-content collapse in">
-                <div class="span12">
-                    $conn, <table cellpadding="0" cellspacing="0"  class="table" id="example">
+<div class="col-md-9">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Users Log</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+    <div class="col-md-12">
+                 <table cellpadding="0" cellspacing="0"  class="table" id="dataTables">
 
                         <thead>
                             <tr>
@@ -20,10 +20,10 @@
                         </thead>
                         <tbody>
                             <?php
-                                        $user_query = mysqli_query($conn, "select * from user_log order by user_log_id ASC") or die(mysqli_error());
-                                        while ($row = mysqli_fetch_array($user_query)) {
-                                            $id = $row['user_log_id'];
-                                            ?>
+                            $user_query = mysqli_query($conn, "select * from user_log order by user_log_id ASC") or die(mysqli_error());
+                            while ($row = mysqli_fetch_array($user_query)) {
+                                $id = $row['user_log_id'];
+                                ?>
 
                             <tr>
 
@@ -32,7 +32,7 @@
                                 <td><?php echo $row['username']; ?></td>
                             </tr>
                             <?php 
-                                    } ?>
+                        } ?>
                         </tbody>
                     </table>
                 </div>

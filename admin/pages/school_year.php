@@ -1,7 +1,7 @@
 
-<div class="span3" id="adduser">
+<div class="col-md-3" id="adduser">
 
-    <div class="row-fluid">
+    <div class="row">
         <!-- block -->
         <div class="block">
             <div class="navbar navbar-inner block-header">
@@ -71,7 +71,7 @@
 ?>
 </div>
 <div class="span6" id="">
-    <div class="row-fluid">
+    <div class="row">
         <!-- block -->
         <div id="block_bg" class="block">
             <div class="navbar navbar-inner block-header">

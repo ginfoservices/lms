@@ -1,6 +1,7 @@
 <?php
 include('dbcon.php');
 
+
 if (isset($_POST['form_name'])) {
 	$table = $_POST['form_name'];
 	$id = $_POST['selector'];

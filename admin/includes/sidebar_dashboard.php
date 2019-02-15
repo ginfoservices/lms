@@ -1,66 +1,78 @@
-<div class="span3" id="sidebar">
-    <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
-        <li class="<?= ($page == 'dashboard') ? 'active' : ''; ?>"> <a href="dashboard.php?page=dashboard"><i
-                    class="icon-chevron-right"></i><i class="icon-home"></i>&nbsp;Dashboard</a> </li>
+<div class="col-md-3" id="sidebar">
+   <style>
+	   .nav{
+		     background-color: #333;
+		  
+	   }
+	   a.nav-link{
+		   color: white;
+	   }
+.nav-link.active {
+  background-color: #666;
+  color: white;
+}
+	</style>
+       <ul class="nav flex-column">
+        <li class="nav-item"> 
+        	<a class="nav-link  <?= ($page == 'dashboard') ? 'active' : ''; ?>" href="index.php?page=dashboard">Dashboard</a> </li>
 
-        <li class="<?= ($page == 'activity_log') ? 'active' : ''; ?>">
-            <a href="dashboard.php?page=activity_log"><i class="icon-chevron-right"></i><i class="icon-file"></i>
+        <li class="nav-item">
+            <a href="index.php?page=activity_log" class="nav-link  <?= ($page == 'activity_log') ? 'active' : ''; ?>" >
                 Activity Log</a>
         </li>
-        <li class="<?= ($page == 'admin_user') ? 'active' : ''; ?>">
-            <a href="dashboard.php?page=admin_user"><i class="icon-chevron-right"></i><i class="icon-user"></i> Admin
+        <li  class="nav-item">
+            <a href="index.php?page=admin_user" class="nav-link  <?= ($page == 'admin_user') ? 'active' : ''; ?>">Admin
                 Users</a>
         </li>
-        <li class="<?= ($page == 'calendar_of_events') ? 'active' : ''; ?>">
-            <a href="dashboard.php?page=calendar_of_events"><i class="icon-chevron-right"></i><i
-                    class="icon-calendar"></i>Calendar of
+        <li  class="nav-item">
+            <a href="index.php?page=calendar_of_events" class="nav-link  <?= ($page == 'calendar_of_events') ? 'active' : ''; ?>">Calendar of
                 Events</a>
         </li>
-        <li class="<?= ($page == 'class') ? 'active' : ''; ?>">
-            <a href="dashboard.php?page=class"><i class="icon-chevron-right"></i><i class="icon-group"></i> Class</a>
+        <li  class="nav-item">
+            <a href="index.php?page=class" class="nav-link  <?= ($page == 'class') ? 'active' : ''; ?>">Class</a>
         </li>
-        <li class="<?= ($page == 'content' || $page == 'add_content') ? 'active' : ''; ?>">
-            <a href="dashboard.php?page=content"><i class="icon-chevron-right"></i><i class="icon-file"></i> Content</a>
+        <li class="nav-item">
+            <a href="index.php?page=content" class="nav-link  <?= ($page == 'content' || $page == 'add_content') ? 'active' : ''; ?>"> Content</a>
         </li>
        
-        <li class="<?= ($page == 'department') ? 'active' : ''; ?>">
-            <a href="dashboard.php?page=department"><i class="icon-chevron-right"></i><i class="icon-building"></i>
+        <li class="nav-item">
+            <a href="index.php?page=department" class="nav-link  <?= ($page == 'department') ? 'active' : ''; ?>">
                 Department</a>
         </li>
-        <li class="<?= ($page == 'downloadable') ? 'active' : ''; ?>">
-            <a href="dashboard.php?page=downloadable"><i class="icon-chevron-right"></i><i class="icon-download"></i>
+        <li class="nav-item">
+            <a href="index.php?page=downloadable" class="nav-link  <?= ($page == 'downloadable') ? 'active' : ''; ?>">
                 Downloadable
                 Materials</a>
         </li>
-        <li class="<?= ($page == 'school_year') ? 'active' : ''; ?>">
-            <a href="dashboard.php?page=school_year"><i class="icon-chevron-right"></i><i class="icon-calendar"></i>
+        <li class="nav-item" >
+            <a href="index.php?page=school_year" class="nav-link  <?= ($page == 'school_year') ? 'active' : ''; ?>">
                 School
                 Year</a>
         </li>
-        <li class="<?= ($page == 'students') ? 'active' : ''; ?>">
-            <a href="dashboard.php?page=students"><i class="icon-chevron-right"></i><i class="icon-group"></i>
+        <li class="nav-item">
+            <a href="index.php?page=students" class="nav-link  <?= ($page == 'students') ? 'active' : ''; ?>">
                 Students</a>
         </li>
-        <li class="<?= ($page == 'subjects' || $page == 'add_subject') ? 'active' : ''; ?>">
-            <a href="dashboard.php?page=subjects"><i class="icon-chevron-right"></i><i class="icon-list-alt"></i>
+        <li class="nav-item">
+            <a href="index.php?page=subjects" class="nav-link  <?= ($page == 'subjects' || $page == 'add_subject') ? 'active' : ''; ?>">
                 Subject</a>
         </li>
         
 
        
-        <li class="<?= ($page == 'teachers') ? 'active' : ''; ?>">
-            <a href="dashboard.php?page=teachers"><i class="icon-chevron-right"></i><i class="icon-group"></i>
+        <li class="nav-item">
+            <a href="index.php?page=teachers" class="nav-link  <?= ($page == 'teachers') ? 'active' : ''; ?>">
                 Teachers</a>
         </li>
       
-        <li class="<?= ($page == 'assignment') ? 'active' : ''; ?>">
-            <a href="dashboard.php?page=assignment"><i class="icon-chevron-right"></i><i class="icon-upload"></i>
+        <li class="nav-item">
+            <a href="index.php?page=assignment" class="nav-link  <?= ($page == 'assignment') ? 'active' : ''; ?>">
                 Uploaded
                 Assignments</a>
         </li>
        
-        <li class="<?= ($page == 'user_log') ? 'active' : ''; ?>">
-            <a href="dashboard.php?page=user_log"><i class="icon-chevron-right"></i><i class="icon-file"></i> User
+        <li class="nav-item" >
+            <a href="index.php?page=user_log" class="nav-link  <?= ($page == 'user_log') ? 'active' : ''; ?>">User
                 Log</a>
         </li>
 

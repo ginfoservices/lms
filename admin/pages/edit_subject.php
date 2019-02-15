@@ -1,5 +1,5 @@
-<div class="span9" id="content">
-    <div class="row-fluid">
+<div class="col-md-9" id="content">
+    <div class="row">
         <a href="dashboard.php?page=add_subject" class="btn btn-info"><i class="icon-plus-sign icon-large"></i> Add
             Subject</a>
         <!-- block -->

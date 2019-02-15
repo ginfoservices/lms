@@ -1,5 +1,5 @@
-<div class="span9" id="content">
-    <div class="row-fluid">
+<div class="col-md-9" id="content">
+    <div class="row">
 
         <!-- block -->
         <div class="block">

@@ -6,13 +6,13 @@ include('admin/dbcon.php');
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <form id="login_form1" class="form-signin" method="post" action="login.php">
-                    <h3 class="form-signin-heading"><i class="icon-lock"></i> Sign in</h3>
+                <form id="login_form1" class="form-signin" method="post">
+                    <h3>Sign in</h3>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="susername" name="susername" placeholder="Username" required>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" id="spassword" name="spassword" placeholder="Password" required>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                     </div>
                     <button id="signin" name="login" class="btn btn-info" type="submit">Sign in</button>
                 </form>
@@ -108,122 +108,7 @@ include('admin/dbcon.php');
         </div>
     </div>
     <!--/.nav-collapse -->
-    <script>
-    $(document).ready(function() {
-        $("#signin_student").submit(function(e) {
-            e.preventDefault();
-
-            var password = jQuery('#password').val();
-            var cpassword = jQuery('#cpassword').val();
-
-
-            if (password == cpassword) {
-                var formData = jQuery(this).serialize();
-                $.ajax({
-                    type: "POST",
-                    url: "student_signup.php",
-                    data: formData,
-                    success: function(html) {
-                        if (html == 'true') {
-                            $.jGrowl(
-                                "Welcome to CHMSC Learning Management System", {
-                                    header: 'Sign up Success'
-                                });
-                            var delay = 2000;
-                            setTimeout(function() {
-                                window.location =
-                                    'dashboard_student.php'
-                            }, delay);
-                        } else if (html == 'false') {
-                            $.jGrowl(
-                                "student does not found in the database Please Sure to Check Your ID Number or Firstname, Lastname and the Section You Belong. ", {
-                                    header: 'Sign Up Failed'
-                                });
-                        }
-                    }
-
-
-                });
-
-            } else {
-                $.jGrowl("student does not found in the database", {
-                    header: 'Sign Up Failed'
-                });
-            }
-        });
-    });
-    </script>
-    <script>
-    $(document).ready(function() {
-        $("#login_form1").submit(function(e) {
-            e.preventDefault();
-            var formData = jQuery(this).serialize();
-            $.ajax({
-                type: "POST",
-                url: "login.php",
-                data: formData,
-                success: function(html) {
-                    if (html == 'teacher_success') {
-
-                        var delay = 1000;
-                        setTimeout(function() {
-                            window.location = 'dasboard_teacher.php'
-                        }, delay);
-                    } else if (html == 'student_success') {
-
-                        var delay = 1000;
-                        setTimeout(function() {
-                            window.location = 'student_notification.php'
-                        }, delay);
-                    } else {
-                        window.location = 'index.php'
-                    }
-                }
-            });
-            return false;
-        });
-    });
-    </script>
-    <script>
-    $(document).ready(function() {
-        $("#signin_teacher").submit(function(e) {
-            e.preventDefault();
-            var password = jQuery('#password').val();
-            var cpassword = jQuery('#cpassword').val();
-            if (password == cpassword) {
-                var formData = jQuery(this).serialize();
-                $.ajax({
-                    type: "POST",
-                    url: "teacher_signup.php",
-                    data: formData,
-                    success: function(html) {
-                        if (html == 'true') {
-                            $.jGrowl(
-                                "Welcome to CHMSC Learning Management System", {
-                                    header: 'Sign up Success'
-                                });
-                            var delay = 1000;
-                            setTimeout(function() {
-                                window.location =
-                                    'dasboard_teacher.php'
-                            }, delay);
-                        } else {
-                            $.jGrowl(
-                                "Your data is not found in the database", {
-                                    header: 'Sign Up Failed'
-                                });
-                        }
-                    }
-                });
-
-            } else {
-                $.jGrowl("Your data is not found in the database", {
-                    header: 'Sign Up Failed'
-                });
-            }
-        });
-    });
-    </script>
+   
     <!-- Modal -->
     <div class="modal fade" id="developers" tabindex="-1" role="dialog" aria-labelledby="modelTitleId2" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -395,5 +280,3 @@ include('admin/dbcon.php');
         </div>
     </div>
     <?php include('admin/includes/footer.php'); ?>
-</body>
-</html>

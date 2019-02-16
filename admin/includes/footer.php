@@ -20,7 +20,7 @@ $(document).ready(function() {
         'searching': false,
         'lengthChange': false
     });
-  
+
 });
 </script>
 
@@ -38,9 +38,12 @@ $(function() {
             <?php $event_query = mysqli_query($conn, "select * from event where teacher_class_id = '' ") or die(mysqli_error());
             while ($event_row = mysqli_fetch_array($event_query)) {
                 ?> {
-                title: '<?php echo $event_row['event_title']; ?> ',
-                start: '<?php echo $event_row['date_start']; ?>',
-                end: '<?php echo $event_row['date_end']; ?>'
+                title: '<?php echo $event_row['
+                event_title ']; ?> ',
+                start: '<?php echo $event_row['
+                date_start ']; ?>',
+                end: '<?php echo $event_row['
+                date_end ']; ?>'
             },
             <?php 
         } ?>
@@ -86,7 +89,116 @@ $(document).ready(function() {
     });
 });
 </script>
+<script>
+$(document).ready(function() {
+    $("#signin_student").submit(function(e) {
+        e.preventDefault();
 
+        var password = jQuery('#password').val();
+        var cpassword = jQuery('#cpassword').val();
+
+
+        if (password == cpassword) {
+            var formData = jQuery(this).serialize();
+            $.ajax({
+                type: "POST",
+                url: "student_signup.php",
+                data: formData,
+                success: function(html) {
+                    if (html == 'true') {
+                        $.jGrowl(
+                            "Welcome to CHMSC Learning Management System", {
+                                header: 'Sign up Success'
+                            });
+                        var delay = 2000;
+                        setTimeout(function() {
+                            window.location =
+                                'dashboard_student.php'
+                        }, delay);
+                    } else if (html == 'false') {
+                        $.jGrowl(
+                            "student does not found in the database Please Sure to Check Your ID Number or Firstname, Lastname and the Section You Belong. ", {
+                                header: 'Sign Up Failed'
+                            });
+                    }
+                }
+
+
+            });
+
+        } else {
+            $.jGrowl("student does not found in the database", {
+                header: 'Sign Up Failed'
+            });
+        }
+    });
+});
+</script>
+<script>
+$(document).ready(function() {
+    $("#login_form1").submit(function(e) {
+        e.preventDefault();
+        var formData = $(this).serialize();
+        $.ajax({
+            type: "POST",
+            url: "login.php",
+            data: formData,
+            success: function(html) {
+                if (html == 'teacher_success') {
+                    var_dump(html);
+
+                } else if (html == 'student_success') {
+                    var_dump(html);
+
+                } else {
+                    window.location = 'index.php';
+                }
+            }
+        });
+
+    });
+});
+</script>
+<script>
+$(document).ready(function() {
+    $("#signin_teacher").submit(function(e) {
+        e.preventDefault();
+        var password = jQuery('#password').val();
+        var cpassword = jQuery('#cpassword').val();
+        if (password == cpassword) {
+            var formData = jQuery(this).serialize();
+            $.ajax({
+                type: "POST",
+                url: "teacher_signup.php",
+                data: formData,
+                success: function(html) {
+                    if (html == 'true') {
+                        $.jGrowl(
+                            "Welcome to CHMSC Learning Management System", {
+                                header: 'Sign up Success'
+                            });
+                        var delay = 1000;
+                        setTimeout(function() {
+                            window.location =
+                                'dasboard_teacher.php'
+                        }, delay);
+                    } else {
+                        $.jGrowl(
+                            "Your data is not found in the database", {
+                                header: 'Sign Up Failed'
+                            });
+                    }
+                }
+            });
+
+        } else {
+            $.jGrowl("Your data is not found in the database", {
+                header: 'Sign Up Failed'
+            });
+        }
+    });
+});
+</script>
 
 <script>
 $(document).ready(function() {

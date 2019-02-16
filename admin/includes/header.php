@@ -8,7 +8,14 @@
    <link rel='stylesheet' href='css/fullcalendar.css' />
    <link rel="stylesheet" href="css/trumbowyg.css">
 
+<style>
+#sidebar{
+    padding-left: 0;
+    height: 100%;
+    background-color: #333;
+}
 
+</style>
 </head>
 
 

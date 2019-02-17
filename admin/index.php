@@ -19,9 +19,11 @@ if (isset($_SESSION['id'])) { include('includes/navbar.php'); ?>
 
 <div class="container-fluid">
     <div class="row">
-        <?php include('includes/sidebar_dashboard.php'); ?>
-        <!--/span-->
-        <?php include 'pages/' . $page . '.php'; ?>
+        <?php 
+        
+        include ('includes/sidebar_dashboard.php'); 
+        
+        include 'pages/' . $page . '.php'; ?>
     </div>
 </div>
 <?php } else { ?>

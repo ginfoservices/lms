@@ -1,113 +1,114 @@
+<div class="col-md-9">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Student</li>
+        </ol>
+    </nav>
+<?php 
+if (isset($_GET['id'])) {
 
-<div class="col-md-3" id="adduser">
-    <div class="row">
-        <!-- block -->
-        <div class="block">
-            <div class="navbar navbar-inner block-header">
-                <div class="muted pull-left">Add Student</div>
-            </div>
-            <div class="block-content collapse in">
-                <div class="span12">
-                    <form method="post">
-                        <?php
-                        $query = mysqli_query($conn, "select * from student LEFT JOIN class ON class.class_id = student.class_id where student_id = '$id'") or die(mysqli_error());
-                        $row = mysqli_fetch_array($query);
-                        ?>
-                        <div class="control-group">
+    $id = $_GET['id'];
+    $query = mysqli_query($conn, "select * from student LEFT JOIN class ON class.class_id = student.class_id where student_id = '$id'") or die(mysqli_error());
+    $row = mysqli_fetch_array($query);
+}
+?>
+<div class="row">
+    <div class="col-md-3">
+        <legend>Add Student</legend>
+        <div class="muted pull-left"></div>
 
-                            <div class="controls">
-                                <select name="cys" class="chzn-select" required>
-                                  
-                                    <?php
-                                    $cys_query = mysqli_query($conn, "select * from class order by class_name");
-                                    while ($cys_row = mysqli_fetch_array($cys_query)) {
+    <form method="post">
+        
+        <div class="form-group">
 
-                                        ?>
-                                    <option value="<?php echo $cys_row['class_id']; ?>" <?= (isset($_GET['id']) ? ($row['class_id'] == $cys_row['class_id'] ? 'selected' : '') : '') ?>>
-                                        <?php echo $cys_row['class_name']; ?></option>
-                                    <?php 
-                                } ?>
-                                </select>
-                            </div>
-                        </div>
+            <select name="cys" class="form-control" required>
 
-                        <div class="control-group">
-                            <div class="controls">
-                                <input name="un" value="<?php echo $row['username']; ?>" class="input focused"
-                                    id="focusedInput" type="text" placeholder="ID Number" required>
-                            </div>
-                        </div>
+                <?php
+                $cys_query = mysqli_query($conn, "select * from class order by class_name");
+                while ($cys_row = mysqli_fetch_array($cys_query)) {
 
-                        <div class="control-group">
-                            <div class="controls">
-                                <input name="fn" value="<?php echo $row['firstname']; ?>" class="input focused"
-                                    id="focusedInput" type="text" placeholder="Firstname" required>
-                            </div>
-                        </div>
-
-                        <div class="control-group">
-                            <div class="controls">
-                                <input name="ln" value="<?php echo $row['lastname']; ?>" class="input focused"
-                                    id="focusedInput" type="text" placeholder="Lastname" required>
-                            </div>
-                        </div>
-
-
-                        <div class="control-group">
-                            <div class="controls">
-                                <button name="<?= isset($_GET['id']) ? 'update' : 'save'; ?>" class="btn btn-success"><i
-                                        class="icon-save icon-large"></i></button>
-
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+                    ?>
+                <option value="<?php echo $cys_row['class_id']; ?>"
+                    <?= (isset($_GET['id']) ? ($row['class_id'] == $cys_row['class_id'] ? 'selected' : '') : '') ?>>
+                    <?php echo $cys_row['class_name']; ?></option>
+                <?php 
+            } ?>
+            </select>
         </div>
-        <!-- /block -->
-    </div>
-    <?php
-    if (isset($_POST['update'])) {
+        <div class="form-group">
 
-        $un = $_POST['un'];
-        $fn = $_POST['fn'];
-        $ln = $_POST['ln'];
-        $cys = $_POST['cys'];
+            <input name="un" value="<?php echo $row['username']; ?>" class="form-control" id="focusedInput" type="text"
+                placeholder="ID Number" required>
+
+        </div>
+        <div class="form-group">
+
+            <input name="fn" value="<?php echo $row['firstname']; ?>" class="form-control" id="focusedInput"
+                type="text" placeholder="Firstname" required>
+
+        </div>
+
+        <div class="form-group">
+
+            <input name="ln" value="<?php echo $row['lastname']; ?>" class="form-control" id="focusedInput" type="text"
+                placeholder="Lastname" required>
+
+        </div>
 
 
-        mysqli_query($conn, "update student set username = '$un' , firstname ='$fn' , lastname = '$ln' , class_id = '$cys' where student_id = '$id' ") or die(mysqli_error());
+
+        <button name="<?= isset($_GET['id']) ? 'update' : 'save'; ?>" class="btn btn-success">Submit</button>
+
+
+</div>
+</form>
+</div>
+</div>
+</div>
+<!-- /block -->
+</div>
+<?php
+if (isset($_POST['update'])) {
+
+    $un = $_POST['un'];
+    $fn = $_POST['fn'];
+    $ln = $_POST['ln'];
+    $cys = $_POST['cys'];
+
+
+    mysqli_query($conn, "update student set username = '$un' , firstname ='$fn' , lastname = '$ln' , class_id = '$cys' where student_id = '$id' ") or die(mysqli_error());
 
 
 
-        ?>
+    ?>
 
-    <script>
-    window.location = $_SERVER['HTTP_REFERER'];
-    </script>
+<script>
+window.location = $_SERVER['HTTP_REFERER'];
+</script>
 
-    <?php 
+<?php 
 } ?>
 
-    <?php
+<?php
 
-    if (isset($_POST['save'])) {
-        $un = $_POST['un'];
-        $fn = $_POST['fn'];
-        $ln = $_POST['ln'];
-        $class_id = $_POST['cys'];
+if (isset($_POST['save'])) {
+    $un = $_POST['un'];
+    $fn = $_POST['fn'];
+    $ln = $_POST['ln'];
+    $class_id = $_POST['cys'];
 
-        mysqli_query($conn, "insert into student (username,firstname,lastname,location,class_id,status)
+    mysqli_query($conn, "insert into student (username,firstname,lastname,location,class_id,status)
     values ('$un','$fn','$ln','uploads/NO-IMAGE-AVAILABLE.jpg','$class_id','Unregistered')                                    
     ") or die(mysqli_error()); ?>
 <script>
-    window.location = $_SERVER['HTTP_REFERER'];
-    </script>
+window.location = $_SERVER['HTTP_REFERER'];
+</script>
 
-    <?php
+<?php
 
 }
 ?>
-    <!-- <script>
+<!-- <script>
     jQuery(document).ready(function($) {
         $("#add_student").submit(function(e) {
             e.preventDefault();
@@ -151,9 +152,12 @@
                 <div class="span12" id="studentTableDiv">
                     <form action="delete.php" method="post">
                         <table cellpadding="0" cellspacing="0" class="table" id="example">
-                        <div class="pull-left"><button type="submit" id="delete" name="form_name" value="student" class="btn btn-danger" onClick="return confirm('Are you sure you want to delete this item?');"><i class="icon-trash icon-large"></i></a></div>
-                            
-                            
+                            <div class="pull-left"><button type="submit" id="delete" name="form_name" value="student"
+                                    class="btn btn-danger"
+                                    onClick="return confirm('Are you sure you want to delete this item?');"><i
+                                        class="icon-trash icon-large"></i></a></div>
+
+
 
                             <div class="pull-right">
                                 <ul class="nav nav-pills">

@@ -1,19 +1,18 @@
-<script src="js/jquery.js"></script>
-<script src="js/popper.js"></script>
+<script src="http://<?= $_SERVER['HTTP_HOST']; ?>/js/popper.js"></script>
 
-<script src="js/bootstrap.js"></script>
+<script src="http://<?= $_SERVER['HTTP_HOST']; ?>/js/bootstrap.js"></script>
 
-<script src="js/sweetalert.min.js"></script>
-<script src="js/feather.min.js"></script>
-<script src="js/jquery.knob.js"></script>
-<script type="text/javascript" src="js/datatables.min.js"></script>
+<script src="http://<?= $_SERVER['HTTP_HOST']; ?>/js/sweetalert.min.js"></script>
+<script src="http://<?= $_SERVER['HTTP_HOST']; ?>/js/feather.min.js"></script>
+<script src="http://<?= $_SERVER['HTTP_HOST']; ?>/js/jquery.knob.js"></script>
+<script src="http://<?= $_SERVER['HTTP_HOST']; ?>/js/datatables.min.js"></script>
 
-<script src='js/moment.min.js'></script>
-<script src='js/fullcalendar.js'></script>
-<script src="js/trumbowyg.js"></script>
+<script src="http://<?= $_SERVER['HTTP_HOST']; ?>/js/moment.min.js"></script>
+<script src="http://<?= $_SERVER['HTTP_HOST']; ?>/js/fullcalendar.js"></script>
+<script src="http://<?= $_SERVER['HTTP_HOST']; ?>/js/trumbowyg.js"></script>
 <script>
 $(document).ready(function() {
-    $.trumbowyg.svgPath = 'css/icons.svg';
+    $.trumbowyg.svgPath = 'http://www.lms.com/css/icons.svg';
     $('#text-content').trumbowyg();
     $(".dial").knob();
     $('#dataTables').DataTable({
@@ -38,12 +37,9 @@ $(function() {
             <?php $event_query = mysqli_query($conn, "select * from event where teacher_class_id = '' ") or die(mysqli_error());
             while ($event_row = mysqli_fetch_array($event_query)) {
                 ?> {
-                title: '<?php echo $event_row['
-                event_title ']; ?> ',
-                start: '<?php echo $event_row['
-                date_start ']; ?>',
-                end: '<?php echo $event_row['
-                date_end ']; ?>'
+                title: '<?php echo $event_row['event_title']; ?> ',
+                start: '<?php echo $event_row['date_start']; ?>',
+                end: '<?php echo $event_row['date_end']; ?>'
             },
             <?php 
         } ?>

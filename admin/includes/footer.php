@@ -90,33 +90,18 @@ $(document).ready(function() {
     $("#signin_student").submit(function(e) {
         e.preventDefault();
 
-        var password = jQuery('#password').val();
-        var cpassword = jQuery('#cpassword').val();
+        var password = $('#password').val();
+        var cpassword = $('#cpassword').val();
 
 
         if (password == cpassword) {
-            var formData = jQuery(this).serialize();
+            var formData = $(this).serialize();
             $.ajax({
                 type: "POST",
                 url: "student_signup.php",
                 data: formData,
                 success: function(html) {
-                    if (html == 'true') {
-                        $.jGrowl(
-                            "Welcome to CHMSC Learning Management System", {
-                                header: 'Sign up Success'
-                            });
-                        var delay = 2000;
-                        setTimeout(function() {
-                            window.location =
-                                'dashboard_student.php'
-                        }, delay);
-                    } else if (html == 'false') {
-                        $.jGrowl(
-                            "student does not found in the database Please Sure to Check Your ID Number or Firstname, Lastname and the Section You Belong. ", {
-                                header: 'Sign Up Failed'
-                            });
-                    }
+                    console.log(html);
                 }
 
 
@@ -132,7 +117,7 @@ $(document).ready(function() {
 </script>
 <script>
 $(document).ready(function() {
-    $("#login_form1").submit(function(e) {
+    $("#user_login").submit(function(e) {
         e.preventDefault();
         var formData = $(this).serialize();
         $.ajax({
@@ -141,13 +126,31 @@ $(document).ready(function() {
             data: formData,
             success: function(html) {
                 if (html == 'teacher_success') {
-                    var_dump(html);
+                    swal('Login', 'You have successfully logged in as a teacher.',
+                        'success', {
+                            timer: 2000,
+                            button: false
+                        }).then(function() {
+                        window.location.replace('teacher/index.php.php');
+                    });
 
                 } else if (html == 'student_success') {
-                    var_dump(html);
+                    swal('Login', 'You have successfully logged in as a student.',
+                        'success', {
+                            timer: 2000,
+                            button: false
+                        }).then(function() {
+                        window.location.replace('student/index.php');
+                    });
 
                 } else {
-                    window.location = 'index.php';
+                    swal('Login', 'Failed to login, please try again',
+                        'error', {
+                            timer: 2000,
+                            button: false
+                        }).then(function() {
+                        window.location.replace('index.php');
+                    });
                 }
             }
         });

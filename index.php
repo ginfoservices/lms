@@ -2,83 +2,125 @@
 include('admin/includes/header.php');
 include('admin/dbcon.php');
 ?>
+
 <body id="login">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <form id="login_form1" class="form-signin" method="post">
+            <div class="col-md-6">
+                <form id="user_login" method="post">
                     <h3>Sign in</h3>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Username"
+                            required>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                            required>
                     </div>
                     <button id="signin" name="login" class="btn btn-info" type="submit">Sign in</button>
                 </form>
             </div>
-        </div>
-        <div class="row">
+
+
             <div class="col-md-6">
-                <form id="signin_student" class="form-signin" method="post">
-                    <h3 class="form-signin-heading"><i class="icon-lock"></i> Sign up as Student</h3>
-                    <div class="form-group">
-                        <label>Class</label>
-                        <select name="class_id" class="form-control span5">
-                            <?php $query = mysqli_query($conn, "select * from class order by class_name ") or die(mysqli_error()); while ($row = mysqli_fetch_array($query)) { ?>
-                                <option value="<?php echo $row['class_id']; ?>"><?php echo $row['class_name']; ?> </option>
-                            <?php } ?>
-                        </select>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#student" role="tab"
+                            aria-controls="home" aria-selected="true">Student</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#teacher" role="tab"
+                            aria-controls="profile" aria-selected="false">Teacher</a>
+                    </li>
+
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="student" role="tabpanel" aria-labelledby="student-tab">
+                        <form id="signin_student" class="form-signin" method="post">
+                            <h3 class="form-signin-heading"><i class="icon-lock"></i> Sign up as Student</h3>
+                            <div class="form-group">
+                                <label>Class</label>
+                                <select name="class_id" class="form-control span5">
+                                    <?php $query = mysqli_query($conn, "select * from class order by class_name ") or die(mysqli_error());
+                                    while ($row = mysqli_fetch_array($query)) { ?>
+                                    <option value="<?php echo $row['class_id']; ?>"><?php echo $row['class_name']; ?>
+                                    </option>
+                                    <?php 
+                                } ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="sfirstname" name="firstname"
+                                    placeholder="Firstname" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="slastname" name="lastname"
+                                    placeholder="Lastname" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="susername" name="username"
+                                    placeholder="ID Number" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="spassword" name="password"
+                                    placeholder="Password" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="scpassword" name="cpassword"
+                                    placeholder="Re-type Password" required>
+                            </div>
+                            <button id="ssignin" name="ssignup" class="btn btn-info btn-block" type="submit">Sign
+                                Up</button>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Firstname" required>
+                    <div class="tab-pane fade" id="teacher" role="tabpanel" aria-labelledby="teacher-tab">
+
+                        <form id="signin_teacher" class="form-signin" method="post">
+                            <h3 class="form-signin-heading"><i class="icon-lock"></i> Sign up as Teacher</h3>
+                            <div class="form-group">
+                                <label>Department</label>
+                                <select name="department_id" class="form-control span12">
+                                    <?php $query = mysqli_query($conn, "select * from department order by department_name ") or die(mysql_error());
+                                    while ($row = mysqli_fetch_array($query)) { ?>
+                                    <option value="<?php echo $row['department_id'] ?>">
+                                        <?php echo $row['department_name']; ?></option>
+                                    <?php 
+                                } ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="firstname" placeholder="Firstname"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="lastname" placeholder="Lastname" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="tusername" name="tusername"
+                                    placeholder="Username" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="tpassword" name="tpassword"
+                                    placeholder="Password" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" id="tcpassword" name="tcpassword"
+                                    placeholder="Re-type Password" required>
+                            </div>
+                            <div class="form-group">
+                                <button id="tsignin" name="tsignup" class="btn btn-info btn-block" type="submit">Sign
+                                    Up</button>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Lastname" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="username" name="username" placeholder="ID Number" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" id="cpassword" name="cpassword" placeholder="Re-type Password" required>
-                    </div>
-                    <button id="ssignin" name="ssignup" class="btn btn-info btn-block" type="submit">Sign Up</button>
-                </form>
-            </div>
-            <div class="col-md-6">
-                <form id="signin_teacher" class="form-signin" method="post">
-                    <h3 class="form-signin-heading"><i class="icon-lock"></i> Sign up as Teacher</h3>
-                    <div class="form-group">
-                        <label>Department</label>
-                        <select name="department_id" class="form-control span12">
-                            <?php $query = mysqli_query($conn, "select * from department order by department_name ") or die(mysql_error()); while ($row = mysqli_fetch_array($query)) { ?>
-                                <option value="<?php echo $row['department_id'] ?>"><?php echo $row['department_name']; ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="tfirstname" placeholder="Firstname" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="tlastname" placeholder="Lastname" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="tusername" name="tusername" placeholder="Username" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" id="tpassword" name="tpassword" placeholder="Password" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" id="tcpassword" name="tcpassword" placeholder="Re-type Password" required>
-                    </div>
-                    <div class="form-group">
-                        <button id="tsignin" name="tsignup" class="btn btn-info btn-block" type="submit">Sign Up</button>
-                </form>
+                </div>
+
+
+
+
+
             </div>
         </div>
+        <!-- bottom navigation -->
         <div class="row">
             <div class="col-md-12">
                 <ul class="nav justify-content-center">
@@ -102,77 +144,103 @@ include('admin/dbcon.php');
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#history" data-toggle="modal">History</a>
-                    </li>                 
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
-    <!--/.nav-collapse -->
-   
-    <!-- Modal -->
-    <div class="modal fade" id="developers" tabindex="-1" role="dialog" aria-labelledby="modelTitleId2" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Developers</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+        <!--/.nav-collapse -->
+
+        <!-- Developers Modal -->
+        <div class="modal fade" id="developers" tabindex="-1" role="dialog" aria-labelledby="modelTitleId2"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Developers</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <img class="card-img-top" src="" alt="">
+                                    <div class="card-body">
+                                        <h4 class="card-title">John Kevin Lorayna </h4>
+                                        <p class="card-text">
+                                            Address: Bago City<br />
+                                            Email: jkevlorayna@gmail.com<br />
+                                            Position: Programmer
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <img class="card-img-top" src="" alt="">
+                                    <div class="card-body">
+                                        <h4 class="card-title">John Kevin Lorayna </h4>
+                                        <p class="card-text">
+                                            Address: Bago City<br />
+                                            Email: jkevlorayna@gmail.com<br />
+                                            Position: Programmer
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <img class="card-img-top" src="" alt="">
+                                    <div class="card-body">
+                                        <h4 class="card-title">John Kevin Lorayna </h4>
+                                        <p class="card-text">
+                                            Address: Bago City<br />
+                                            Email: jkevlorayna@gmail.com<br />
+                                            Position: Programmer
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <img class="card-img-top" src="" alt="">
+                                    <div class="card-body">
+                                        <h4 class="card-title">John Kevin Lorayna </h4>
+                                        <p class="card-text">
+                                            Address: Bago City<br />
+                                            Email: jkevlorayna@gmail.com<br />
+                                            Position: Programmer
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <img class="card-img-top" src="holder.js/100x180/" alt="">
-                                <div class="card-body">
-                                    <h4 class="card-title">John Kevin Lorayna </h4>
-                                    <p class="card-text">
-                                        Address: Bago City<br />
-                                        Email: jkevlorayna@gmail.com<br />
-                                        Position: Programmer
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card">
-                                <img class="card-img-top" src="holder.js/100x180/" alt="">
-                                <div class="card-body">
-                                    <h4 class="card-title">John Kevin Lorayna </h4>
-                                    <p class="card-text">
-                                        Address: Bago City<br />
-                                        Email: jkevlorayna@gmail.com<br />
-                                        Position: Programmer
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card">
-                                <img class="card-img-top" src="holder.js/100x180/" alt="">
-                                <div class="card-body">
-                                    <h4 class="card-title">John Kevin Lorayna </h4>
-                                    <p class="card-text">
-                                        Address: Bago City<br />
-                                        Email: jkevlorayna@gmail.com<br />
-                                        Position: Programmer
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card">
-                                <img class="card-img-top" src="holder.js/100x180/" alt="">
-                                <div class="card-body">
-                                    <h4 class="card-title">John Kevin Lorayna </h4>
-                                    <p class="card-text">
-                                        Address: Bago City<br />
-                                        Email: jkevlorayna@gmail.com<br />
-                                        Position: Programmer
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+            </div>
+        </div>
+        <!-- Directories Modal -->
+        <div class="modal fade" id="directories" tabindex="-1" role="dialog" aria-labelledby="modelTitleId3"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Directories</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <?php
+                        $mission_query = mysqli_query($conn, "select * from content where title  = 'Directories' ") or die(mysql_error());
+                        $mission_row = mysqli_fetch_array($mission_query);
+                        echo $mission_row['content'];
+                        ?>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -180,103 +248,83 @@ include('admin/dbcon.php');
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="directories" tabindex="-1" role="dialog" aria-labelledby="modelTitleId3" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Directories</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <?php
-                        $mission_query = mysqli_query($conn, "select * from content where title  = 'Directories' ") or die(mysql_error());
+        <!-- About Modal -->
+        <div class="modal fade" id="about" tabindex="-1" role="dialog" aria-labelledby="modelTitleId3"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">About</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <?php
+                        $mission_query = mysqli_query($conn, "select * from content where title  = 'mission' ") or die(mysqli_error($mysqli));
                         $mission_row = mysqli_fetch_array($mission_query);
                         echo $mission_row['content'];
-                    ?>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        ?>
+                        <hr />
+                        <?php
+                        $mission_query = mysqli_query($conn, "select * from content where title  = 'vision' ") or die(mysqli_error($mysqli));
+                        $mission_row = mysqli_fetch_array($mission_query);
+                        echo $mission_row['content'];
+                        ?>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="about" tabindex="-1" role="dialog" aria-labelledby="modelTitleId3" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">About</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <?php
-                        $mission_query = mysqli_query($conn,"select * from content where title  = 'mission' ")or die(mysqli_error($mysqli));
-                        $mission_row = mysqli_fetch_array($mission_query);
-                        echo $mission_row['content'];
-                    ?>
-                    <hr />
-                    <?php
-                        $mission_query = mysqli_query($conn,"select * from content where title  = 'vision' ")or die(mysqli_error($mysqli));
-                        $mission_row = mysqli_fetch_array($mission_query);
-                        echo $mission_row['content'];
-                    ?>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="campuses" tabindex="-1" role="dialog" aria-labelledby="modelTitleId4" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Campuses</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <?php
+        <!-- Campuses Modal -->
+        <div class="modal fade" id="campuses" tabindex="-1" role="dialog" aria-labelledby="modelTitleId4"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Campuses</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <?php
                         $mission_query = mysqli_query($conn, "select * from content where title  = 'Campuses' ") or die(mysql_error());
                         $mission_row = mysqli_fetch_array($mission_query);
                         echo $mission_row['content'];
-                    ?>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        ?>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="history" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">History</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <?php
+        <!-- History Modal -->
+        <div class="modal fade" id="history" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">History</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <?php
                         $mission_query = mysqli_query($conn, "select * from content where title  = 'History' ") or die(mysql_error());
                         $mission_row = mysqli_fetch_array($mission_query);
                         echo $mission_row['content'];
-                    ?>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        ?>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <?php include('admin/includes/footer.php'); ?>
+        
+        <?php include('admin/includes/footer.php'); ?>

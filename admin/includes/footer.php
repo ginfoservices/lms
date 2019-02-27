@@ -35,14 +35,14 @@ $(function() {
         // US Holidays
         events: [
             <?php $event_query = mysqli_query($conn, "select * from event where teacher_class_id = '' ") or die(mysqli_error());
-                while ($event_row = mysqli_fetch_array($event_query)) {
-                    ?> {
+            while ($event_row = mysqli_fetch_array($event_query)) {
+                ?> {
                 title: '<?php echo $event_row['event_title']; ?> ',
                 start: '<?php echo $event_row['date_start']; ?>',
                 end: '<?php echo $event_row['date_end']; ?>'
             },
             <?php 
-            } ?>
+        } ?>
         ]
 
     });
@@ -71,7 +71,7 @@ $(document).ready(function() {
                         window.location.replace('index.php');
                     });
                 } else {
-                    swal('Login', 'Login failed try again', 'error', {
+                    swal('Login', 'Login failed try again', 'success', {
                         timer: 2000,
                         button: false
                     }).then(function() {
@@ -239,226 +239,6 @@ $(document).ready(function() {
         });
 
     });
-});
-</script>
-
-
-<script>
-$(document).ready(function() {
-
-    $('#subject').submit(function(event) {
-        //alert('document id ready');    
-        event.preventDefault();
-        var formData = $('#subject').serialize();
-        $.ajax({
-            type: "post",
-            url: "process.php",
-            data: formData,
-            dataType: "text",
-            success: function(response) {
-
-                if (response === 'success') {
-                    swal('Department', 'You have successfully added the department.',
-                        'success', {
-                            timer: 2000,
-                            button: false
-                        }).then(function() {
-                        window.location.replace('index.php?page=<?php echo $_GET['
-                            page ']; ?>');
-                    });
-                } else if (response === 'failed') {
-                    swal('Department', 'We could not add the department to the database',
-                        'error', {
-                            timer: 2000,
-                            button: false
-                        }).then(function() {
-                        window.location.replace('index.php?page=<?php echo $_GET['
-                            page ']; ?>');
-                    });
-                }
-
-
-
-
-                // if(response==='success'){
-                // window.location.replace('index.php?page=subjects');
-                //  }else if(response==='failed'){
-                //  window.location.replace('index.php?page=subjects&type=error');
-                //}    
-            }
-        });
-
-
-
-
-    });
-    $('#teacher').submit(function(event) {
-        event.preventDefault();
-        var formData = $('#teacher').serialize();
-        $.ajax({
-            type: "post",
-            url: "process.php",
-            data: formData,
-            dataType: "text",
-            success: function(response) {
-
-                if (response === 'success') {
-                    swal('Department', 'You have successfully added the department.',
-                        'success', {
-                            timer: 2000,
-                            button: false
-                        }).then(function() {
-                        window.location.replace('index.php?page=teacher');
-                    });
-                } else if (response === 'failed') {
-                    swal('Department', 'We could not add the department to the database',
-                        'error', {
-                            timer: 2000,
-                            button: false
-                        }).then(function() {
-                        window.location.replace('index.php?page=teacher');
-                    });
-                }
-            }
-        });
-
-
-
-
-    });
-
-    $('#page').submit(function(event) {
-        event.preventDefault();
-        var formData = $('#page').serialize();
-        $.ajax({
-            type: "post",
-            url: "process.php",
-            data: formData,
-            dataType: "text",
-            success: function(response) {
-                console.log(response);
-
-                if (response === 'success') {
-                    swal('Department', 'You have successfully added the department.',
-                        'success', {
-                            timer: 2000,
-                            button: false
-                        }).then(function() {
-                        window.location.replace('index.php?page=pages');
-                    });
-                } else if (response === 'failed') {
-                    swal('Department', 'We could not add the department to the database',
-                        'error', {
-                            timer: 2000,
-                            button: false
-                        }).then(function() {
-                        window.location.replace('index.php?page=pages');
-                    });
-                }
-            }
-        });
-    });
-    $('#classes').submit(function(e) {
-        e.preventDefault();
-        var formData = $('#classes').serialize();
-        $.ajax({
-            type: "post",
-            url: "process.php",
-            data: formData,
-            dataType: "text",
-            success: function(response) {
-                //console.log(response);
-                if (response === 'success') {
-                    swal('Department', 'You have successfully added the department.',
-                        'success', {
-                            timer: 2000,
-                            button: false
-                        }).then(function() {
-                        window.location.replace('index.php?page=classes');
-                    });
-                } else if (response === 'failed') {
-                    swal('Department', 'We could not add the department to the database',
-                        'error', {
-                            timer: 2000,
-                            button: false
-                        }).then(function() {
-                        window.location.replace('index.php?page=classes');
-                    });
-                }
-
-            }
-        })
-
-    });
-
-});
-//for delete
-$(document).ready(function() {
-    $('#delete').click(function(e) {
-        e.preventDefault();
-        var url = this.href;
-        // alert(url);
-        swal({
-            title: 'Are you sure?',
-            text: "It will permanently deleted !",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then(function() {
-
-            $.ajax({
-                type: "GET",
-                url: url,
-                success: function(response) {
-                    //console.log(response);
-                    if (response === 'deleted') {
-                        swal('Department',
-                            'You have successfully delete the subject.',
-                            'success', {
-                                timer: 2000,
-                                button: false
-                            }).then(function() {
-                            window.location.replace(
-                                'index.php?page=subject');
-                        });
-                    } else {
-                        swal('Department',
-                            'We could not delete the subject to the database',
-                            'error', {
-                                timer: 2000,
-                                button: false
-                            }).then(function() {
-                            window.location.replace(
-                                'index.php?page=subject');
-                        });
-                    }
-
-                }
-            });
-        })
-
-    });
-
-
-
-});
-
-
-$(document).ready(function() {
-
-    //alert('document id ready');    
-    $.ajax({
-        type: "GET",
-        url: "process1.php?page=<?php echo $_GET['page']; ?>",
-        success: function(html) {
-            $("#table_data").append(html);
-        }
-    });
-
-
-
 });
 </script>
 

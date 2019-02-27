@@ -24,36 +24,40 @@
 
             <legend>Add User</legend>
 
-            <form id="data_form">
+            <form id="admin_user">
                 <div class="form-group">
                     <label for="" class="sr-only"></label>
 
                     <input type="hidden" name="form_name" value="user">
-                    <input class="form-control" name="firstname" id="firstname" type="text" value="<?= (isset($_GET['id'])) ? $row['firstname'] : ''; ?>" placeholder="Firstname" required>
+                    <input class="form-control" name="firstname" id="firstname" type="text"
+                        value="<?= (isset($_GET['id'])) ? $row['firstname'] : ''; ?>" placeholder="Firstname" required>
 
                 </div>
 
                 <div class="form-group">
                     <label for="" class="sr-only"></label>
-                    <input class="form-control" name="lastname" id="lastname" type="text" value="<?= (isset($_GET['id'])) ? $row['lastname'] : ''; ?>" placeholder="Lastname" required>
+                    <input class="form-control" name="lastname" id="lastname" type="text"
+                        value="<?= (isset($_GET['id'])) ? $row['lastname'] : ''; ?>" placeholder="Lastname" required>
 
                 </div>
 
                 <div class="form-group">
                     <label for="" class="sr-only"></label>
-                    <input class="form-control" name="username" id="username" type="text" value="<?= (isset($_GET['id'])) ? $row['username'] : ''; ?>" placeholder="Username" required>
+                    <input class="form-control" name="username" id="username" type="text"
+                        value="<?= (isset($_GET['id'])) ? $row['username'] : ''; ?>" placeholder="Username" required>
 
                 </div>
 
                 <div class="form-group">
                     <label for="" class="sr-only"></label>
-                    <input class="form-control" name="password" id="password" type="password" value="<?= (isset($_GET['id'])) ? $row['password'] : ''; ?>" placeholder="Password" required>
+                    <input class="form-control" name="password" id="password" type="password"
+                        value="<?= (isset($_GET['id'])) ? $row['password'] : ''; ?>" placeholder="Password" required>
 
                 </div>
 
                 <div class="form-group">
                     <label for="" class="sr-only"></label>
-                    <button class="btn btn-info btn-block">Add</button>
+                    <button name="save" class="btn btn-info btn-block">Add</button>
 
 
                 </div>
@@ -63,7 +67,7 @@
         <div class="col-md-9">
 
             <script>
-                $("#data_form").submit(function(e) {
+            $("#admin_user").submit(function(e) {
                 e.preventDefault();
                 var formData = $(this).serialize();
 
@@ -75,7 +79,7 @@
                     dataType: "text",
                     success: function(response) {
                         if (response == "true") {
-                            swal('Data Insert', 'Provided data was added successfully', 'success', {
+                            swal('Admin User', 'User was added successfully', 'success', {
                                 timer: 2000,
                                 button: false
                             }).then(function() {
@@ -87,9 +91,9 @@
             });
             </script>
 
-
+            
             <script>
-                $("#username").keyup(function(e) {
+            $("#username").keyup(function(e) {
                 var username = $('#username').val();
                 $.ajax({
                     type: "get",
@@ -113,23 +117,25 @@
             <?php
           //  if (isset($_POST['save'])) {
 
-            //        mysqli_query($conn, "insert into user (username,password,firstname,lastname) values('$username','$password','$firstname','$lastname')") or die(mysqli_error());
+        //        mysqli_query($conn, "insert into user (username,password,firstname,lastname) values('$username','$password','$firstname','$lastname')") or die(mysqli_error());
 
-            //          mysqli_query($conn, "insert into activity_log (date,username,action) values(NOW(),'$username','Add User $username')") or die(mysqli_error());
+      //          mysqli_query($conn, "insert into activity_log (date,username,action) values(NOW(),'$username','Add User $username')") or die(mysqli_error());
             ?>
             <script>
-                //            window.location = $_SERVER['HTTP_REFERER'];
+            //            window.location = $_SERVER['HTTP_REFERER'];
             </script>
             <?php
 
-            //      }
-            //}
+  //      }
+    //}
             ?>
 
 
             <form action="delete.php" method="post">
                 <!-- block -->
-                <legend>Admin User list <button type="submit" id="delete" name="form_name" class="btn btn-danger float-right" value="user" class="btn btn-danger" onClick="return confirm('Are you sure you want to delete this item?');">Delete</button></legend>
+                <legend>Admin User list <button type="submit" id="delete" name="form_name"
+                        class="btn btn-danger float-right" value="user" class="btn btn-danger"
+                        onClick="return confirm('Are you sure you want to delete this item?');">Delete</button></legend>
 
 
                 <table cellpadding="0" cellspacing="0" class="table" id="dataTables">
@@ -153,16 +159,12 @@
 
                         <tr>
                             <td>
-                                <input id="optionsCheckbox" class="uniform_on" name="selector[]" type="checkbox" value="<?php echo $id; ?>">
+                                <input id="optionsCheckbox" class="uniform_on" name="selector[]" type="checkbox"
+                                    value="<?php echo $id; ?>">
                             </td>
-                            <td>
-                                <?php echo $row['firstname']; ?>
-                                <?php echo $row['lastname']; ?>
-                            </td>
+                            <td><?php echo $row['firstname']; ?> <?php echo $row['lastname']; ?></td>
 
-                            <td>
-                                <?php echo $row['username']; ?>
-                            </td>
+                            <td><?php echo $row['username']; ?></td>
 
                             <td>
                                 <a href="index.php?page=admin_user&id=<?= $id; ?>" class="btn btn-success">Edit</a>
@@ -182,4 +184,4 @@
 </div>
 
 
-</div> 
+</div>

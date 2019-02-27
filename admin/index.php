@@ -8,28 +8,27 @@ $directory = '';
 
 if (isset($_REQUEST['page'])) {
     $page = $_REQUEST['page'];
+
 } else {
     $page = 'dashboard';
 }
 $page_title .= " - " . ucfirst($page);
 
 require_once 'includes/header.php';
-if (isset($_SESSION['id'])) {
-    include('includes/navbar.php'); ?>
+if (isset($_SESSION['id'])) { include('includes/navbar.php'); ?>
 
 <div class="container-fluid">
     <div class="row">
         <?php 
-
-        include('includes/sidebar_dashboard.php');
-
+        
+        include ('includes/sidebar_dashboard.php'); 
+        
         include 'pages/' . $page . '.php'; ?>
     </div>
 </div>
-<?php 
-} else { ?>
+<?php } else { ?>
 <style>
-    .login {
+.login {
     height: 100%;
     width: 100%;
     margin: 0;
@@ -46,7 +45,7 @@ if (isset($_SESSION['id'])) {
 </style>
 <div class="login">
     <div class="login-form col-md-4 text-center">
-        <h1 class="mb-5">Learning <small>Management System</small></h1>
+        <h1 class="mb-5" >Learning <small>Management System</small></h1>
         <form id="login_form" method="post">
             <div class="form-group">
                 <label class="sr-only" for="username">Username</label>
@@ -61,6 +60,4 @@ if (isset($_SESSION['id'])) {
     </div>
 </div>
 <!-- /container -->
-<?php 
-}
-include('includes/footer.php'); ?> 
+<?php } include('includes/footer.php'); ?>
